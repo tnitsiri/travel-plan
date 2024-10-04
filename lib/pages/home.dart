@@ -1,5 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:travel_plan/components/result/result.dart';
 import 'package:travel_plan/components/search.dart';
 import 'package:travel_plan/models/mrt_station.model.dart';
 import 'package:travel_plan/services/notify.service.dart';
@@ -165,12 +166,20 @@ class _HomePageState extends State<HomePage> {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         if (_stations.isNotEmpty) ...[
-                          const Text(
-                            'ผลลัพธ์การค้นหาเส้นทาง',
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.w500,
+                          Container(
+                            margin: const EdgeInsets.only(
+                              bottom: 12,
                             ),
+                            child: const Text(
+                              'ผลลัพธ์การค้นหาเส้นทาง',
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                          ResultComponent(
+                            stations: _stations,
                           ),
                         ],
                       ],

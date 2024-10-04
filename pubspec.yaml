@@ -41,6 +41,7 @@ dependencies:
   json_annotation: ^4.9.0
   toast: ^0.3.0
   collection: any
+  dotted_line: ^3.2.2
 
 dev_dependencies:
   flutter_test:
