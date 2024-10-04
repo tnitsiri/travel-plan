@@ -63,8 +63,10 @@ class ResultDirectionComponent extends StatelessWidget {
                     child: Container(
                       width: 42,
                       padding: EdgeInsets.only(
-                        top: 16 + 5,
-                        bottom: MediaQuery.of(context).padding.bottom + 5,
+                        top: 10 + 8,
+                        bottom: MediaQuery.of(context).padding.bottom > 0
+                            ? MediaQuery.of(context).padding.bottom + 8
+                            : 10 + 8,
                       ),
                       child: Center(
                         child: DottedLine(

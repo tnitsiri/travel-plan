@@ -19,7 +19,7 @@ class ResultStationComponent extends StatelessWidget {
 
     return Container(
       padding: const EdgeInsets.symmetric(
-        vertical: 5,
+        vertical: 6,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
