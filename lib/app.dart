@@ -34,7 +34,7 @@ class App extends StatelessWidget {
             fontFamily: 'Prompt',
             fontSize: 14.5,
             fontWeight: FontWeight.w400,
-            color: CupertinoColors.white,
+            color: CupertinoColors.black,
           ),
           navTitleTextStyle: TextStyle(
             fontFamily: 'Prompt',

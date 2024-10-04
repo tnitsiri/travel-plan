@@ -18,10 +18,7 @@ class InputComponent extends StatelessWidget {
   Widget build(
     BuildContext context,
   ) {
-    TextStyle textStyle =
-        CupertinoTheme.of(context).textTheme.textStyle.copyWith(
-              color: CupertinoColors.black,
-            );
+    TextStyle textStyle = CupertinoTheme.of(context).textTheme.textStyle;
 
     return Container(
       margin: const EdgeInsets.only(
@@ -46,11 +43,10 @@ class InputComponent extends StatelessWidget {
                   fillColor: CupertinoColors.transparent,
                   labelText: label,
                   floatingLabelBehavior: FloatingLabelBehavior.always,
-                  labelStyle:
-                      CupertinoTheme.of(context).textTheme.textStyle.copyWith(
-                            fontWeight: FontWeight.w500,
-                            color: CupertinoTheme.of(context).primaryColor,
-                          ),
+                  labelStyle: textStyle.copyWith(
+                    fontWeight: FontWeight.w500,
+                    color: CupertinoTheme.of(context).primaryColor,
+                  ),
                   hintText: hint,
                   hintStyle: textStyle,
                   contentPadding: const EdgeInsets.symmetric(

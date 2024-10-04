@@ -35,7 +35,7 @@ class _HomePageState extends State<HomePage> {
                 'เส้นทางรถไฟฟ้า MRT',
               ),
             ),
-            SliverPadding(
+            const SliverPadding(
               padding: EdgeInsets.only(
                 top: 10,
               ),
@@ -43,10 +43,33 @@ class _HomePageState extends State<HomePage> {
                 child: SearchComponent(),
               ),
             ),
-            // SliverFillRemaining(
-            //   hasScrollBody: false,
-            //   child: Co ,
-            // ),
+            SliverFillRemaining(
+              hasScrollBody: false,
+              child: Container(
+                padding: const EdgeInsets.only(
+                  top: 20,
+                  left: 16,
+                  right: 16,
+                  bottom: 16,
+                ),
+                decoration: const BoxDecoration(
+                  color: Color(0xFFEBEBEB),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Text(
+                      'ผลลัพธ์การค้นหาเส้นทาง',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ],
         ),
       ),
