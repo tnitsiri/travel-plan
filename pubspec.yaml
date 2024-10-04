@@ -42,6 +42,13 @@ dependencies:
   toast: ^0.3.0
   collection: any
   dotted_line: ^3.2.2
+  modal_bottom_sheet: #^2.1.2
+    # Manually use a fix for Flutter 3.7 until the package has been updated.
+    # See https://github.com/jamesblasco/modal_bottom_sheet/pull/315.
+    git:
+      url: https://github.com/jamesblasco/modal_bottom_sheet.git
+      ref: 38c6f44d0c4205608618a676a907c2d104d00b52
+      path: modal_bottom_sheet
 
 dev_dependencies:
   flutter_test:

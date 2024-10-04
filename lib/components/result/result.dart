@@ -1,6 +1,8 @@
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:remixicon/remixicon.dart';
+import 'package:travel_plan/components/result/direction.dart';
 import 'package:travel_plan/components/result/slot.dart';
 import 'package:travel_plan/models/mrt_station.model.dart';
 
@@ -20,6 +22,24 @@ class ResultComponent extends StatefulWidget {
 }
 
 class _ResultComponentState extends State<ResultComponent> {
+  // ANCHOR Direction
+  void _direction() {
+    showMaterialModalBottomSheet(
+      context: context,
+      backgroundColor: CupertinoColors.white,
+      duration: const Duration(
+        milliseconds: 300,
+      ),
+      builder: (
+        BuildContext context,
+      ) {
+        return ResultDirectionComponent(
+          stations: widget.stations,
+        );
+      },
+    );
+  }
+
   // ANCHOR Build
   @override
   Widget build(
@@ -31,7 +51,7 @@ class _ResultComponentState extends State<ResultComponent> {
       borderRadius: BorderRadius.circular(
         16,
       ),
-      onPressed: () {},
+      onPressed: _direction,
       child: Container(
         padding: const EdgeInsets.symmetric(
           vertical: 15,
