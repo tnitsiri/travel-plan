@@ -1,10 +1,22 @@
 import 'package:flutter/cupertino.dart';
 import 'package:remixicon/remixicon.dart';
 import 'package:travel_plan/components/input.dart';
+import 'package:travel_plan/models/mrt_station.model.dart';
+import 'package:travel_plan/plugins/picker/model.dart';
+import 'package:travel_plan/plugins/picker/picker.dart';
+import 'package:travel_plan/services/notify.service.dart';
 
 class SearchComponent extends StatefulWidget {
+  final List<MrtStationModel> mrtStations;
+  final Function({
+    required MrtStationModel startMrtStation,
+    required MrtStationModel endMrtStation,
+  }) search;
+
   const SearchComponent({
     super.key,
+    required this.mrtStations,
+    required this.search,
   });
 
   // ANCHOR Create state
@@ -15,6 +27,148 @@ class SearchComponent extends StatefulWidget {
 }
 
 class _SearchComponentState extends State<SearchComponent> {
+  // ANCHOR State
+  final TextEditingController _startMrtStationController =
+      TextEditingController();
+
+  final TextEditingController _endMrtStationController =
+      TextEditingController();
+
+  MrtStationModel? _startMrtStation;
+  MrtStationModel? _endMrtStation;
+
+  // ANCHOR Search
+  void _search() {
+    if (_startMrtStation == null) {
+      NotifyService.toast(
+        context,
+        message: 'กรุณาเลือกสถานีต้นทาง',
+      );
+
+      return;
+    } else if (_endMrtStation == null) {
+      NotifyService.toast(
+        context,
+        message: 'กรุณาเลือกสถานีปลายทาง',
+      );
+
+      return;
+    } else if (_startMrtStation!.id_station == _endMrtStation!.id_station) {
+      NotifyService.toast(
+        context,
+        message: 'ไม่สามารถเลือกสถานีปลายทางเดียวกับสถานีต้นทางได้',
+      );
+
+      return;
+    }
+
+    widget.search(
+      startMrtStation: _startMrtStation!,
+      endMrtStation: _endMrtStation!,
+    );
+  }
+
+  // ANCHOR Select start station
+  void _selectStartStation() async {
+    List<PickerModel<MrtStationModel>> items = [];
+
+    for (MrtStationModel mrtStation in widget.mrtStations) {
+      items.add(
+        PickerModel(
+          text: mrtStation.name,
+          value: mrtStation,
+        ),
+      );
+    }
+
+    int initialItem = 0;
+
+    if (_startMrtStation != null) {
+      initialItem = items.indexWhere(
+        (e) => e.value.id_station == _startMrtStation!.id_station,
+      );
+    }
+
+    MrtStationModel? mrtStation = await showCupertinoModalPopup(
+      context: context,
+      builder: (
+        BuildContext context,
+      ) {
+        return Picker.from<MrtStationModel>(
+          context,
+          initialItem: initialItem,
+          items: items,
+        );
+      },
+    );
+
+    if (mrtStation == null) {
+      return;
+    }
+
+    if (mounted) {
+      setState(() {
+        _startMrtStation = mrtStation;
+        _startMrtStationController.text = mrtStation.name;
+      });
+    }
+  }
+
+  // ANCHOR Select end station
+  void _selectEndStation() async {
+    List<PickerModel<MrtStationModel>> items = [];
+
+    for (MrtStationModel mrtStation in widget.mrtStations) {
+      items.add(
+        PickerModel(
+          text: mrtStation.name,
+          value: mrtStation,
+        ),
+      );
+    }
+
+    int initialItem = 0;
+
+    if (_endMrtStation != null) {
+      initialItem = items.indexWhere(
+        (e) => e.value.id_station == _endMrtStation!.id_station,
+      );
+    }
+
+    MrtStationModel? mrtStation = await showCupertinoModalPopup(
+      context: context,
+      builder: (
+        BuildContext context,
+      ) {
+        return Picker.from<MrtStationModel>(
+          context,
+          initialItem: initialItem,
+          items: items,
+        );
+      },
+    );
+
+    if (mrtStation == null) {
+      return;
+    }
+
+    if (mounted) {
+      setState(() {
+        _endMrtStation = mrtStation;
+        _endMrtStationController.text = mrtStation.name;
+      });
+    }
+  }
+
+  // ANCHOR Dispose
+  @override
+  void dispose() {
+    _startMrtStationController.dispose();
+    _endMrtStationController.dispose();
+
+    super.dispose();
+  }
+
   // ANCHOR Build
   @override
   Widget build(
@@ -86,16 +240,18 @@ class _SearchComponentState extends State<SearchComponent> {
                     InputComponent(
                       label: 'จากสถานี',
                       hint: 'เลือกสถานีต้นทาง',
-                      onPressed: () {},
+                      controller: _startMrtStationController,
+                      onPressed: _selectStartStation,
                     ),
                     InputComponent(
                       label: 'ไปยังสถานี',
                       hint: 'เลือกสถานีปลายทาง',
-                      onPressed: () {},
+                      controller: _endMrtStationController,
+                      onPressed: _selectEndStation,
                     ),
                     CupertinoButton(
                       color: CupertinoTheme.of(context).primaryColor,
-                      onPressed: () {},
+                      onPressed: _search,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,

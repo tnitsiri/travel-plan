@@ -4,12 +4,14 @@ import 'package:flutter/material.dart';
 class InputComponent extends StatelessWidget {
   final String label;
   final String hint;
+  final TextEditingController controller;
   final VoidCallback onPressed;
 
   const InputComponent({
     super.key,
     required this.label,
     required this.hint,
+    required this.controller,
     required this.onPressed,
   });
 
@@ -37,6 +39,7 @@ class InputComponent extends StatelessWidget {
               shadowColor: CupertinoColors.transparent,
               surfaceTintColor: CupertinoColors.transparent,
               child: TextField(
+                controller: controller,
                 style: textStyle,
                 readOnly: true,
                 decoration: InputDecoration(
