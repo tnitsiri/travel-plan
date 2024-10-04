@@ -1,9 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:travel_plan/components/search.dart';
+import 'package:travel_plan/models/mrt_station.model.dart';
 
 class HomePage extends StatefulWidget {
+  final List<MrtStationModel> mrtStations;
+
   const HomePage({
     super.key,
+    required this.mrtStations,
   });
 
   // ANCHOR Create state
